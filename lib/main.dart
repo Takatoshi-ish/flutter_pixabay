@@ -33,7 +33,7 @@ class _PixabayPageState extends State<PixabayPage> {
   // 非同期の関数になったため返り値の型にFutureがつき、さらに async キーワードが追加されました。
   Future<void> fetchImages(String text) async {
     // await で待つことで Future が外れ Response 型のデータを受け取ることができました。
-    Response response = await Dio().get(
+    final response = await Dio().get(
       'https://pixabay.com/api/?key=29114335-b274e39c4e0338cf384400565&q=$text&image_type=photo&pretty=true&per_page=100',
     );
     // 用意した imageList に hits の value を代入する
@@ -85,9 +85,9 @@ class _PixabayPageState extends State<PixabayPage> {
             onTap: () async {
               // まずは一時保存に使えるフォルダ情報を取得します。
               // Future 型なので await で待ちます
-              Directory dir = await getTemporaryDirectory();
+              final dir = await getTemporaryDirectory();
 
-              Response response = await Dio().get(
+              final response = await Dio().get(
                 // previewURL は荒いためより高解像度の webformatURL から画像をダウンロードします。
                 image['webformatURL'],
                 options: Options(
@@ -96,7 +96,7 @@ class _PixabayPageState extends State<PixabayPage> {
                 ),
               );
               // フォルダの中に image.png という名前でファイルを作り、そこに画像データを書き込みます。
-              File imageFile = await File('${dir.path}/image.png')
+              final imageFile = await File('${dir.path}/image.png')
                   .writeAsBytes(response.data);
 
               // path を指定すると share できます。
