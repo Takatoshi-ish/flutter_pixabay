@@ -34,7 +34,13 @@ class _PixabayPageState extends State<PixabayPage> {
   Future<void> fetchImages(String text) async {
     // await で待つことで Future が外れ Response 型のデータを受け取ることができました。
     final response = await Dio().get(
-      'https://pixabay.com/api/?key=29114335-b274e39c4e0338cf384400565&q=$text&image_type=photo&pretty=true&per_page=100',
+      'https://pixabay.com/api',
+      queryParameters: {
+        'key': '29114335-b274e39c4e0338cf384400565',
+        'q': text,
+        'image_type': 'photo',
+        'per_page': 100,
+      },
     );
     // 用意した imageList に hits の value を代入する
     imageList = response.data['hits'];
