@@ -46,6 +46,7 @@ class _PixabayPageState extends State<PixabayPage> {
     final List hits = response.data['hits'];
     // map メソッドを使って Map<String, dynamic> の型を一つひとつ PixabayImage 型に変換していきます。
     pixabayImages = hits.map((e) => PixabayImage.fromMap(e)).toList();
+    pixabayImages.sort((a, b) => -a.likes.compareTo(b.likes));
     setState(() {}); // 画面を更新したいので setState も呼んでおきます
   }
 
